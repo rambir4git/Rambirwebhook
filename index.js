@@ -12,10 +12,10 @@ process.env.DEBUG = 'dialogflow:debug'; // enables lib debugging statements
 
 express()
   .use(express.static(path.join(__dirname, 'public')))
-  .get('/', (request, response) => exports.dialogflowFirebaseFulfillment( request, response ))
+  .post('/', (request, response) => exports.dialogflowFirebaseFulfillment( request, response ))
   .listen(PORT, () => console.log(`Listening on ${ PORT }`));
  
-exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, response) => {
+exports.dialogflowFirebaseFulfillment (request, response){
   const agent = new WebhookClient({ request, response });
   console.log('Dialogflow Request headers: ' + JSON.stringify(request.headers));
   console.log('Dialogflow Request body: ' + JSON.stringify(request.body));
