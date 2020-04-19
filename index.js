@@ -2,6 +2,7 @@
 // for Dialogflow fulfillment library docs, samples, and to report issues
 'use strict';
 const express = require('express')
+const path = require('path')
 const PORT = process.env.PORT || 5000 
 const functions = require('firebase-functions');
 const {WebhookClient, Platform} = require('dialogflow-fulfillment');
