@@ -1,12 +1,18 @@
 // See https://github.com/dialogflow/dialogflow-fulfillment-nodejs
 // for Dialogflow fulfillment library docs, samples, and to report issues
 'use strict';
- 
+const express = require('express')
+const PORT = process.env.PORT || 5000 
 const functions = require('firebase-functions');
 const {WebhookClient, Platform} = require('dialogflow-fulfillment');
 const {Card, Suggestion, Payload} = require('dialogflow-fulfillment');
  
 process.env.DEBUG = 'dialogflow:debug'; // enables lib debugging statements
+
+express()
+  .use(express.static(path.join(__dirname, 'public')))
+  .get('/', (request, response) => exports.dialogflowFirebaseFulfillment( request, response ))
+  .listen(PORT, () => console.log(`Listening on ${ PORT }`));
  
 exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, response) => {
   const agent = new WebhookClient({ request, response });
@@ -33,13 +39,6 @@ exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, resp
     agent.add(new Suggestion(`List all services`));
     agent.add(new Suggestion(`What can you do?`));
     agent.add(new Suggestion(`Exit`));
-  }
- 
-  function fallback(agent) {
-    agent.add(`I'm sorry, can you try again?`);
-    
-    agent.add(new Suggestion(`List chatbot services`));
-    agent.add(new Suggestion(`What can you do?`));
   }
 
   function welcomeservice(agent){
@@ -673,17 +672,24 @@ exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, resp
   }
   
   function level4(agent){
-  		agent.add('intent level4, pink data for bike and car services');
     	var name2 = agent.parameters.level2;
     	var name3 = agent.parameters.level3;
+    	var name4 = agent.parameters.level4;
+    
+  		agent.add('Fetching information about this service:\n\n'
+                 +'Service Class: '+name2+'\n'
+                 +'Service Category: '+name3+'\n'
+                 +'Service Name: '+name4);
+    
     	var params2 = name2.toLowerCase();
     	var params3 = name3.toLowerCase();
-    	agent.add('data from api');
+    	var params4 = name4.toLowerCase();
     
-    	agent.add('would like to explore another one?');
-    	agent.add(new Suggestion('Car Service'));
-    	agent.add(new Suggestion('Bike Service'));
-    	agent.add(new Suggestion('SOS Service'));
+    	agent.add('What would like to know about this service ?');
+    	agent.add(new Suggestion('Description'));
+    	agent.add(new Suggestion('When do i need this ?'));
+    	agent.add(new Suggestion('What is included ?'));
+    	agent.add(new Suggestion('What actions will be performed ?'));
     	//agent.setContext({ name: 'level5', lifespan: 50 });
   }
   
@@ -697,47 +703,15 @@ exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, resp
   		agent.add('level5, to purchase this service call an api or Abhijeet sir');
     	agent.add('service parameters: '+name2+' --> '+name3+' --> '+name4);
   }
-  // // Uncomment and edit to make your own intent handler
-  // // uncomment `intentMap.set('your intent name here', yourFunctionHandler);`
-  // // below to get this function to be run when a Dialogflow intent is matched
-  // function yourFunctionHandler(agent) {
-  //   agent.add(`This message is from Dialogflow's Cloud Functions for Firebase editor!`);
-  //   agent.add(new Card({
-  //       title: `Title: this is a card title`,
-  //       imageUrl: 'https://developers.google.com/actions/images/badges/XPM_BADGING_GoogleAssistant_VER.png',
-  //       text: `This is the body text of a card.  You can even use line\n  breaks and emoji! 💁`,
-  //       buttonText: 'This is a button',
-  //       buttonUrl: 'https://assistant.google.com/'
-  //     })
-  //   );
-  //   agent.add(new Suggestion(`Quick Reply`));
-  //   agent.add(new Suggestion(`Suggestion`));
-  //   agent.setContext({ name: 'weather', lifespan: 2, parameters: { city: 'Rome' }});
-  // }
-
-  // // Uncomment and edit to make your own Google Assistant intent handler
-  // // uncomment `intentMap.set('your intent name here', googleAssistantHandler);`
-  // // below to get this function to be run when a Dialogflow intent is matched
-  // function googleAssistantHandler(agent) {
-  //   let conv = agent.conv(); // Get Actions on Google library conv instance
-  //   conv.ask('Hello from the Actions on Google client library!') // Use Actions on Google library
-  //   agent.add(conv); // Add Actions on Google library responses to your agent's response
-  // }
-  // // See https://github.com/dialogflow/fulfillment-actions-library-nodejs
-  // // for a complete Dialogflow fulfillment library Actions on Google client library v2 integration sample
-
-  // Run the proper function handler based on the matched Dialogflow intent name
+  
   let intentMap = new Map();
   intentMap.set('AboutBot', aboutbot);
   intentMap.set('Default Welcome Intent', welcome);
-  intentMap.set('Default Fallback Intent', fallback);
   intentMap.set('welcomeservice', welcomeservice);
   intentMap.set('level1',level1);
   intentMap.set('level2',level2);
   intentMap.set('level3',level3);
   intentMap.set('level4',level4);
   intentMap.set('level5',level5);
-  // intentMap.set('your intent name here', yourFunctionHandler);
-  // intentMap.set('your intent name here', googleAssistantHandler);
   agent.handleRequest(intentMap);
 });

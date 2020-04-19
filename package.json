@@ -9,8 +9,8 @@
     "node": "8"
   },
   "scripts": {
-    "start": "firebase serve --only functions:dialogflowFirebaseFulfillment",
-    "deploy": "firebase deploy --only functions:dialogflowFirebaseFulfillment"
+    "start": "node index.js",
+    "test": "node test.js"
   },
   "dependencies": {
     "actions-on-google": "^2.4.0",
@@ -18,5 +18,7 @@
     "firebase-functions": "^3.3.0",
     "dialogflow": "^1.1.1",
     "dialogflow-fulfillment": "^0.6.1"
+    "ejs": "^2.5.6",
+    "express": "^4.15.2"
   }
 }
