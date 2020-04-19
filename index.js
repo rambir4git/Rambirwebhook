@@ -1,10 +1,9 @@
 // See https://github.com/dialogflow/dialogflow-fulfillment-nodejs
 // for Dialogflow fulfillment library docs, samples, and to report issues
 'use strict';
-const express = require('express')
-const path = require('path')
-const PORT = process.env.PORT || 5000 
-const functions = require('firebase-functions');
+const express = require('express');
+const path = require('path');
+const PORT = process.env.PORT || 5000 ;
 const {WebhookClient, Platform} = require('dialogflow-fulfillment');
 const {Card, Suggestion, Payload} = require('dialogflow-fulfillment');
  
@@ -12,7 +11,7 @@ process.env.DEBUG = 'dialogflow:debug'; // enables lib debugging statements
 
 express()
   .use(express.static(path.join(__dirname, 'public')))
-  .get('/', (request, response) => {
+  .post('/', (request, response) => {
   const agent = new WebhookClient({ request, response });
   console.log('Dialogflow Request headers: ' + JSON.stringify(request.headers));
   console.log('Dialogflow Request body: ' + JSON.stringify(request.body));
