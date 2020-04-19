@@ -13,7 +13,7 @@ process.env.DEBUG = 'dialogflow:debug'; // enables lib debugging statements
 
 express()
   .use(bodyParser.json())
-  .post('/', (request, response) => exports.dialogflowFirebaseFulfillment( request, response ))
+  .post('/', exports.dialogflowFirebaseFulfillment(request, response))
   .listen(PORT, () => console.log(`Listening on ${ PORT }`));
  
 exports.dialogflowFirebaseFulfillment (request, response){
