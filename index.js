@@ -12,10 +12,7 @@ process.env.DEBUG = 'dialogflow:debug'; // enables lib debugging statements
 
 express()
   .use(express.static(path.join(__dirname, 'public')))
-  .post('/', (request, response) => exports.dialogflowFirebaseFulfillment( request, response ))
-  .listen(PORT, () => console.log(`Listening on ${ PORT }`));
- 
-exports.dialogflowFirebaseFulfillment (request, response){
+  .post('/', (request, response) => {
   const agent = new WebhookClient({ request, response });
   console.log('Dialogflow Request headers: ' + JSON.stringify(request.headers));
   console.log('Dialogflow Request body: ' + JSON.stringify(request.body));
@@ -715,4 +712,5 @@ exports.dialogflowFirebaseFulfillment (request, response){
   intentMap.set('level4',level4);
   intentMap.set('level5',level5);
   agent.handleRequest(intentMap);
-});
+})
+  .listen(PORT, () => console.log(`Listening on ${ PORT }`));
