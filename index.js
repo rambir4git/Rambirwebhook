@@ -15,8 +15,6 @@ const PORT = process.env.PORT || 5000
 const functions = require('firebase-functions');
 const {WebhookClient, Platform} = require('dialogflow-fulfillment');
 const {Card, Suggestion, Payload} = require('dialogflow-fulfillment');
-const uuid = require('uuid');
-const dialogflow = require('dialogflow');
  
 process.env.DEBUG = 'dialogflow:debug'; // enables lib debugging statements
 
@@ -725,67 +723,3 @@ express()
   agent.handleRequest(intentMap);
 })
   .listen(PORT, () => console.log(`Listening on ${ PORT }`));
-  
-  express()
-  .use(bodyParser.json())
-  .post('/mekbot', (data, context)=>{  
-    const projectId = 'mekbot-7a8c7';
-    const sessionId = uuid.v4();
-    const languageCode = 'en';
-    const query = data.question; 
-	const contexts = data.context;
-	
-	const auth = data.auth;
-	
-    const sessionClient = new dialogflow.SessionsClient();
-	
-    async function detectIntent(projectId, sessionId, query, contexts, languageCode) {
-		
-        // The path to identify the agent that owns the created intent.
-        const sessionPath = sessionClient.sessionPath(projectId, sessionId);
-
-        // The text query request.
-        const request = {
-            session: sessionPath,
-            queryInput: {
-                text: {
-                    text: query,
-                    languageCode: languageCode,
-                },
-            },
-        };
-
-        if (contexts && contexts.length > 0) {
-            request.queryParams = {
-                contexts: contexts,
-            };
-        }
-
-        const responses = await sessionClient.detectIntent(request);
-        return responses[0];
-    }
-
-    async function executeQuery(projectId, sessionId, query, languageCode) {
-        try {
-            console.log(`Sending Query: ${query}`);
-            intentResponse = await detectIntent(
-                projectId,
-                sessionId,
-                query,
-                contexts,
-                languageCode
-            );
-            console.log('Detected intent');
-            console.log(`Fulfillment Text: ${intentResponse.queryResult.fulfillmentText}`);
-            return intentResponse.queryResult 
-			
-        } catch (error) {
-            console.log(error);
-            return "Error detecting Intent"   
-        }
-    }
-
-    return executeQuery(projectId, sessionId, query, languageCode); 
-})
-  .listen(PORT, () => console.log(`Listening on ${ PORT }`));
- 
