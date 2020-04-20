@@ -787,5 +787,5 @@ express()
 
     return executeQuery(projectId, sessionId, query, languageCode); 
 })
-  .listen(PORT, () = console.log(`Listening on ${ PORT }`));
+  .listen(PORT, () => console.log(`Listening on ${ PORT }`));
  
