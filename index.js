@@ -709,7 +709,6 @@ express()
 	
 		return new Promise((resolve, reject) => {
         callApi().then((output) => {
-			
             agent.add('output:' + output);
             resolve();
         });
@@ -739,6 +738,9 @@ express()
           });
           res.on('end', () => {
             let response = JSON.parse(chunk);
+			
+			console.log(response);
+			
             let output = response['results'][0];
             
             resolve(output);
