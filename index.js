@@ -731,7 +731,7 @@ express()
 		};
 		
     return new Promise((resolve, reject) => {
-		var http = require('https');
+		var https = require('https');
         let req = https.get(options, (res) => {
           let chunk = '';
           res.on('data', (d) => {
