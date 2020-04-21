@@ -717,9 +717,18 @@ express()
   }
   
   function callApi(){
+	  
+	const options = {
+		host: 'http://mekvahan.com/api/Car/general_services',
+		method: 'GET',
+		headers: {
+			'Content-Type': 'application/json'
+				}
+		};
+		
     return new Promise((resolve, reject) => {
 		var http = require('http');
-        let req = http.get('http://mekvahan.com/api/Car/general_services', (res) => {
+        let req = http.get(options, (res) => {
           let chunk = '';
           res.on('data', (d) => {
             chunk += d;
