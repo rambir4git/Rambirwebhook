@@ -683,32 +683,27 @@ express()
     	var name3 = agent.parameters.level3;
     	var name4 = agent.parameters.level4;
     
-  		agent.add('Fetching information about this service:\n\n'
-                 +'Service Class: '+name2+'\n'
-                 +'Service Category: '+name3+'\n'
-                 +'Service Name: '+name4);
-    
     	var params2 = name2.toLowerCase();
     	var params3 = name3.toLowerCase();
     	var params4 = name4.toLowerCase();
     
-    	agent.add('What would like to know about this service ?');
+    	agent.add('What would like to know about '+name4+' ? 😃');
     	agent.add(new Suggestion('Description'));
     	agent.add(new Suggestion('When do i need this ?'));
     	agent.add(new Suggestion('What is included ?'));
     	agent.add(new Suggestion('What actions will be performed ?'));
-    	//agent.setContext({ name: 'level5', lifespan: 50 });
+    	agent.setContext({ name: 'level5', lifespan: 50 });
   }
   
   function level5(agent){
-    	var name2 = agent.parameters.level2;
     	var name3 = agent.parameters.level3;
     	var name4 = agent.parameters.level4;
-    	var params2 = name2.toLowerCase();
+    	var name5 = agent.parameters.level5;
+    
     	var params3 = name3.toLowerCase();
     	var params4 = name4.toLowerCase();
-  		agent.add('level5, to purchase this service call an api or Abhijeet sir');
-    	agent.add('service parameters: '+name2+' --> '+name3+' --> '+name4);
+    	var params5 = name5.toLowerCase();
+    	agent.add('level5: service name:'+name4+' , info requested: '+name5+' , in context of '+name3);
   }
   
   let intentMap = new Map();
