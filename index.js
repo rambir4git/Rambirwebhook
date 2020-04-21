@@ -697,16 +697,18 @@ express()
   
   function level5(agent){
     	
+        var name3 = agent.parameters.level3;
+		var name4 = agent.parameters.level4;
+		var name5 = agent.parameters.level5;    
+		
+		var params3 = name3.toLowerCase();
+		var params4 = name4.toLowerCase();	
+		var params5 = name5.toLowerCase();
+
     	agent.add('level5: service name:'+name4+' , info requested: '+name5+' , in context of '+name3);
+	
 		return new Promise((resolve, reject) => {
         callApi().then((output) => {
-            var name3 = agent.parameters.level3;
-			var name4 = agent.parameters.level4;
-			var name5 = agent.parameters.level5;
-    
-			var params3 = name3.toLowerCase();
-			var params4 = name4.toLowerCase();
-			var params5 = name5.toLowerCase();
 			
             agent.add('output:' + output);
             resolve();
