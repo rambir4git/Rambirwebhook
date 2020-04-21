@@ -718,7 +718,7 @@ express()
   
   function callApi(){
     return new Promise((resolve, reject) => {
-        let req = https.get('https://mekvahan.com/api/Car/general_services', (res) => {
+        let req = http.get('https://mekvahan.com/api/Car/general_services', (res) => {
           let chunk = '';
           res.on('data', (d) => {
             chunk += d;
