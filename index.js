@@ -709,7 +709,7 @@ express()
 	
 		return new Promise((resolve, reject) => {
         callApi().then((output) => {
-            agent.add('output:' + output);
+            agent.add('output:' + JSON.stringify(output));
             resolve();
         });
     }); 		
@@ -741,9 +741,7 @@ express()
 			
 			console.log(response);
 			
-            let output = response['data'][0];
-            
-            resolve(output);
+            resolve(response);
           });
         });
     });
