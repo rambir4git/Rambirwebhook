@@ -739,10 +739,10 @@ express()
 			if(params5.includes('descri')){
 				agent.add(name5+'\n\n'+matched_service.description);
 			}
-			else if(params5.includes('when')&&params5.includes('need')){
+			else if(params5.includes('need')){
 				agent.add(name5+'\n\n'+matched_service.when);
 			}
-			else if(params5.includes('what')&&params5.includes('include')){
+			else if(params5.includes('include')){
 				agent.add(name5+'\n\n'+matched_service.what);
 			}
 			else if(params5.includes('action')){
