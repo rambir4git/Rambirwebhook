@@ -753,7 +753,7 @@ express()
 				agent.add(`Instruction unclear, retry. 🙃`);
 				return;
 			}
-			response_data = response_data.replace(/BREAKNEWLINE/g,'\n').trim();
+			response_data = response_data.replace(/BREAKNEWLINE /g,'\n').trim();
 			agent.add(name5+'\n\n'+response_data);
             resolve();
         });
