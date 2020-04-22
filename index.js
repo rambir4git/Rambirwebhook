@@ -751,7 +751,6 @@ express()
 			else{
 				agent.add(`Instruction unclear, retry. 🙃`);
 			}
-			agent.add(JSON.stringify(matched_service));
             resolve();
         });
     }); 		
