@@ -736,7 +736,7 @@ express()
 					matched_service = service;
 				}
 			});
-			if(params5.includes('despriction')){
+			if(params5.includes('descri')){
 				agent.add(name5+'\n\n'+matched_service.description);
 			}
 			else if(params5.includes('when')&&params5.includes('need')){
