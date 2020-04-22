@@ -735,8 +735,8 @@ express()
 					max_fuzzy_ratio=fuzzy_ratio;
 					matched_service = service;
 				}
-				agent.add(matched_service);
 			});
+			agent.add(JSON.stringify(matched_service));
             resolve();
         });
     }); 		
