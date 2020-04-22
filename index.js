@@ -720,7 +720,9 @@ express()
 			apiEndPoint='regularCarService';
 		else
 			apiEndPoint='regularBikeService';
-	
+
+		agent.add('using '+apiEndPoint+' api');
+
 		return new Promise((resolve, reject) => {
         callApi(apiEndPoint).then((output) => {
             agent.add('output:' + JSON.stringify(output));
