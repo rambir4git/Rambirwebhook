@@ -755,7 +755,7 @@ express()
           });
           res.on('end', () => {
             let response = JSON.parse(chunk);
-			console.log('Mekvahan Response: '+response);
+			console.log('Mekvahan Response: '+JSON.stringify(response));
             resolve(response);
           });
         });
