@@ -10,6 +10,7 @@
 'use strict';
 const express = require('express')
 const path = require('path')
+const fuzz = require('fuzzball');
 const bodyParser = require('body-parser')
 const PORT = process.env.PORT || 5000 
 const functions = require('firebase-functions');
@@ -726,8 +727,15 @@ express()
 		return new Promise((resolve, reject) => {
         callApi(apiEndPoint).then((output) => {
 			var services = output.data;
+			var max_fuzzy_ratio=0;
+			var matched_service;
 			services.forEach(service => {
-				agent.add(service.service_name)
+				var fuzzy_ratio = fuzz.token_sort_ratio(name4, service.service_name);
+				if(fuzzy_ratio>=max_fuzzy_ratio){
+					max_fuzzy_ratio=fuzzy_ratio;
+					matched_service = service;
+				}
+				agent.add(matched_service);
 			});
             resolve();
         });
@@ -755,7 +763,8 @@ express()
           });
           res.on('end', () => {
             let response = JSON.parse(chunk);
-			//console.log('Mekvahan Response: '+JSON.stringify(response));
+			//
+			console.log('Mekvahan Response: '+JSON.stringify(response));
             resolve(response);
           });
         });
