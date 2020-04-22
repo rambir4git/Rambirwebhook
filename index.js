@@ -54,7 +54,7 @@ express()
   function welcomeservice(agent){
     auth = agent.parameters.auth;
     if(!auth)
-      agent.add("CAUTION: You are not logged in, some data displayed might not be latest.");
+      agent.add("CAUTION: You are not logged in, personalizied messages and offers will not work.");
 
     agent.add(new Suggestion(`About Mekvahan`));
     agent.add(new Suggestion(`Mekvahan Service`));
@@ -762,7 +762,7 @@ express()
 				console.log("before"+action_data)
 				action_data = action_data.replace(/[^\w\s\n,]/gi,'');
 				console.log("action"+action_data);
-				action_data = action_data.replace(/,/g,' 🛠 ');
+				action_data = action_data.replace(/,/g,'  🛠  ');
 				response_data = 'Following actions are performed under '+name4+'\n\n'+action_data;
 			}
 			else{
