@@ -736,21 +736,25 @@ express()
 					matched_service = service;
 				}
 			});
+			var response_data;
 			if(params5.includes('descri')){
-				agent.add(name5+'\n\n'+matched_service.description);
+				response_data=matched_service.description;
 			}
 			else if(params5.includes('need')){
-				agent.add(name5+'\n\n'+matched_service.when);
+				response_data=matched_service.when;
 			}
 			else if(params5.includes('include')){
-				agent.add(name5+'\n\n'+matched_service.what);
+				response_data=matched_service.what;
 			}
 			else if(params5.includes('action')){
-				agent.add('work in progress here');
+				response_data='work in progress here';
 			}
 			else{
 				agent.add(`Instruction unclear, retry. 🙃`);
+				return;
 			}
+			response_data = response_data.replace(/BREAKNEWLINE/g,'\n').trim();
+			agent.add(name5+'\n\n'+response_data);
             resolve();
         });
     }); 		
