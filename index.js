@@ -49,7 +49,10 @@ express()
   }
 
   function welcomeservice(agent){
-    
+    var auth = agent.parameters.auth;
+    if(!auth)
+      agent.add("CAUTION: You are not logged in, some data displayed might not be latest.");
+
     agent.add(new Suggestion(`About Mekvahan`));
     agent.add(new Suggestion(`Mekvahan Service`));
     agent.add(new Suggestion(`SOS or Roadside Assistance`));
