@@ -714,15 +714,11 @@ express()
 		var params5 = name5.toLowerCase();
 
 		var apiEndPoint;
-
-		agent.add('level5: service name:'+name4+' , info requested: '+name5+' , in context of '+name3+' ,under '+name2);
 		
 		if(params2.includes('car'))
 			apiEndPoint='regularCarService';
 		else
 			apiEndPoint='regularBikeService';
-
-		agent.add('using '+apiEndPoint+' api');
 
 		return new Promise((resolve, reject) => {
         callApi(apiEndPoint).then((output) => {
@@ -738,23 +734,41 @@ express()
 			});
 			var response_data;
 			if(params5.includes('descri')){
-				response_data=matched_service.description;
+				response_data='Description of '+name4+'\n\n'+matched_service.description;
 			}
 			else if(params5.includes('need')){
-				response_data=matched_service.when;
+				response_data=name4+' is needed when\n\n'+matched_service.when;
 			}
 			else if(params5.includes('include')){
-				response_data=matched_service.what;
+				response_data=name4+' includes following services\n\n'+matched_service.what;
 			}
 			else if(params5.includes('action')){
-				response_data='work in progress here';
+				var action_data = matched_service.action1+'\n'+
+										matched_service.action2+'\n'+
+										matched_service.action3+'\n'+
+										matched_service.action4+'\n'+
+										matched_service.action5+'\n'+
+										matched_service.action6+'\n'+
+										matched_service.action7+'\n'+
+										matched_service.action8+'\n'+
+										matched_service.action9+'\n'+
+										matched_service.action10+'\n'+
+										matched_service.action11+'\n'+
+										matched_service.action12+'\n'+
+										matched_service.action13+'\n'+
+										matched_service.action14+'\n'+
+										matched_service.action15;
+				action_data = action_data.trim();
+				action_data = action_data.replace(/[^\w\s\n,]/gi,'');
+				action_data = action_data.replace(/,/g,' 🛠 ');
+				response_data = 'Following actions are performed under '+name4+'\n\n'+action_data;
 			}
 			else{
 				agent.add(`Instruction unclear, retry. 🙃`);
 				return;
 			}
-			response_data = response_data.replace(/BREAKNEWLINE /g,'\n').trim();
-			agent.add(name5+'\n\n'+response_data);
+			response_data = response_data.replace(/ BREAKNEWLINE /g,'\n').trim();
+			agent.add(response_data);
             resolve();
         });
     }); 		
