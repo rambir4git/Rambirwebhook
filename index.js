@@ -725,7 +725,10 @@ express()
 
 		return new Promise((resolve, reject) => {
         callApi(apiEndPoint).then((output) => {
-            agent.add('output:' + JSON.stringify(output));
+			var services = output.data;
+			services.array.forEach(service => {
+				agent.add(service.service_name)
+			});
             resolve();
         });
     }); 		
