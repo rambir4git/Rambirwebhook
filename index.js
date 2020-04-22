@@ -736,6 +736,21 @@ express()
 					matched_service = service;
 				}
 			});
+			if(params5.includes('despriction')){
+				agent.add(name5+'\n\n'+matched_service.description);
+			}
+			else if(params5.includes('when')&&params5.includes('need')){
+				agent.add(name5+'\n\n'+matched_service.when);
+			}
+			else if(params5.includes('what')&&params5.includes('include')){
+				agent.add(name5+'\n\n'+matched_service.what);
+			}
+			else if(params5.includes('action')){
+				agent.add('work in progress here');
+			}
+			else{
+				agent.add(`Instruction unclear, retry. 🙃`);
+			}
 			agent.add(JSON.stringify(matched_service));
             resolve();
         });
