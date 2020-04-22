@@ -726,7 +726,7 @@ express()
 		return new Promise((resolve, reject) => {
         callApi(apiEndPoint).then((output) => {
 			var services = output.data;
-			services.array.forEach(service => {
+			services.forEach(service => {
 				agent.add(service.service_name)
 			});
             resolve();
@@ -755,7 +755,7 @@ express()
           });
           res.on('end', () => {
             let response = JSON.parse(chunk);
-			console.log('Mekvahan Response: '+JSON.stringify(response));
+			//console.log('Mekvahan Response: '+JSON.stringify(response));
             resolve(response);
           });
         });
