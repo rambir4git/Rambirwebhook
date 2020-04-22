@@ -759,7 +759,9 @@ express()
 										matched_service.action14+'\n'+
 										matched_service.action15;
 				action_data = action_data.trim();
+				console.log("before"+action_data)
 				action_data = action_data.replace(/[^\w\s\n,]/gi,'');
+				console.log("action"+action_data);
 				action_data = action_data.replace(/,/g,' 🛠 ');
 				response_data = 'Following actions are performed under '+name4+'\n\n'+action_data;
 			}
